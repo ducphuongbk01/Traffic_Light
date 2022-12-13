@@ -1,12 +1,19 @@
 # Visualize Data
+from importlib.resources import path
 import matplotlib.pyplot as plt
 import random
-from glob import glob
 import cv2
-import pandas as pd
+from glob import glob
+import random
 
+data_y = glob("./data_new_2/validation/y/*.jpg")
+data_rand = random.sample(data_y, k=25)
 
-df = pd.read_csv("/home/phuongdoan/Phuong/Traffic_Light/data_total/train/train.csv")
-sub_df = df.loc[df['Filenames'] == "111_image_012800.jpg"]
-print(int(sub_df['r']))
+for i, path in enumerate(data_rand):
+    ax = plt.subplot(5, 5, i + 1)
+    img = cv2.imread(path)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    plt.imshow((img).astype("uint8")) 
+    plt.axis("off")
 
+plt.show()
